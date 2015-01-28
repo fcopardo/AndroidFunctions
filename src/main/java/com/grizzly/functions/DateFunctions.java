@@ -12,7 +12,7 @@ public class DateFunctions {
 
 
     /**
-     * Converts a java.util.Date object to an int timestamp (BBR Api) valid value.
+     * Converts a java.util.Date object to an int timestamp valid value.
      * @param date the date to be converted.
      * @return an int timestamp representation of the int value.
      */

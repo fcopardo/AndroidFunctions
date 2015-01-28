@@ -1,6 +1,10 @@
 
 package com.grizzly.functions;
 
+import android.annotation.TargetApi;
+import android.os.Build;
+import android.text.TextUtils;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -113,11 +117,8 @@ public class TextFunctions {
      * @param mail
      * @return
      */
+    @TargetApi(Build.VERSION_CODES.GINGERBREAD)
     public static boolean isMail(String mail){
-        if(mail.matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-                + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")){
-            return true;
-        }
-        return false;
+        return !TextUtils.isEmpty(mail) && android.util.Patterns.EMAIL_ADDRESS.matcher(mail).matches();
     }
 }

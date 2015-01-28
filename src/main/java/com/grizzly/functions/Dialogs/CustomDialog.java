@@ -16,9 +16,11 @@
 package com.grizzly.functions.Dialogs;
 
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.support.annotation.DrawableRes;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +38,7 @@ public class CustomDialog {
     private static boolean booleanResponse = false;
     private static int logo = 0;
 
+    @TargetApi(Build.VERSION_CODES.FROYO)
     public static void OneButtonDialog(final Activity activity, String message) {
 
         AlertDialog alertDialog1 = new AlertDialog.Builder(activity).create();
@@ -56,6 +59,7 @@ public class CustomDialog {
         alertDialog1.show();
     }
 
+    @TargetApi(Build.VERSION_CODES.FROYO)
     public static void OneButtonDialog(final Activity activity, String message,
                                        String title) {
 
@@ -74,6 +78,7 @@ public class CustomDialog {
         alertDialog1.show();
     }
 
+    @TargetApi(Build.VERSION_CODES.FROYO)
     public static String getEmailDialog(Activity activity) {
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
