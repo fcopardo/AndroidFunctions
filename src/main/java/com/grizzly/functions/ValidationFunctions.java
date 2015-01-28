@@ -27,7 +27,6 @@ public class ValidationFunctions {
             int acumula_rut = 0;
             String verifica = "";
             for (l = rutc.length()-1; l >= 0; l--) {
-                System.out.println("ValidaRut "+String.valueOf(rutc.charAt(l)));
                 acumula_rut = acumula_rut + factor
                         * Integer.parseInt(String.valueOf(rutc.charAt(l)));
                 factor++;
@@ -44,7 +43,6 @@ public class ValidationFunctions {
             }
             if (!verifica.equalsIgnoreCase(digitoComprueba)) {
                 valor = false;
-                System.out.println("ValidaRut2,"+ verifica+"=="+digitoComprueba);
             }
             return valor;
         } catch (Exception e) {
