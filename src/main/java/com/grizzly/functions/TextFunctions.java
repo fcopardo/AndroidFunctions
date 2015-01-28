@@ -12,7 +12,7 @@ import java.security.NoSuchAlgorithmException;
 /**
  * Functions to format text
  *
- * @author
+ * @author Fco Pardo Baeza.
  */
 public class TextFunctions {
 

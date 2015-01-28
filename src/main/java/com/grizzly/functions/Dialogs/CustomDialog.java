@@ -30,7 +30,7 @@ import com.grizzly.functions.R;
 /**
  * A custom dialog.
  *
- * @author
+ * @author Fco Pardo Baeza.
  */
 public class CustomDialog {
 

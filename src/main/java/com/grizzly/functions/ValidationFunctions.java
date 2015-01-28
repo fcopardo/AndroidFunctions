@@ -1,10 +1,16 @@
 package com.grizzly.functions;
 
 /**
+ * Text Validation Functions. Currently contains only functions related to the Chilean ID
  * Created by fpardo on 1/28/15.
  */
 public class ValidationFunctions {
 
+    /**
+     * Checks if a given String is a valid Chilean ID.
+     * @param rut_a the String to evaluate
+     * @return true or false
+     */
     public static boolean CheckRut(String rut_a) {
 
         boolean valor = true;
@@ -47,6 +53,11 @@ public class ValidationFunctions {
         }
     }
 
+    /**
+     * Fixes a Chilean ID, adding the proper verification string at the end of it.
+     * @param rut_a The Chilean ID to be evaluated.
+     * @return a fixed version of the given String.
+     */
     public static String fixRut(String rut_a) {
         String rut_c = rut_a.replaceAll("\\.", "");
         String rut_o = rut_a.substring(0, 10);
