@@ -2,6 +2,9 @@
 
 package com.grizzly.functions;
 
+import android.annotation.TargetApi;
+import android.os.Build;
+
 /**
  * Created on 20-03-14.
  */
@@ -13,6 +16,7 @@ public class PhoneFunctions {
      * @param list
      * @param number
      */
+    @TargetApi(Build.VERSION_CODES.FROYO)
     public static void sendSMS(String list, String number) {
         if (!number.equalsIgnoreCase("null") && !number.isEmpty()) {
             android.telephony.SmsManager m = android.telephony.SmsManager
@@ -35,6 +39,7 @@ public class PhoneFunctions {
      * @param list   the messages to send.
      * @param number
      */
+    @TargetApi(Build.VERSION_CODES.FROYO)
     public static void sendMultiSMS(String list, String number) {
         android.telephony.SmsManager m = android.telephony.SmsManager
                 .getDefault();
@@ -51,6 +56,7 @@ public class PhoneFunctions {
      * @param list
      * @param number
      */
+    @TargetApi(Build.VERSION_CODES.FROYO)
     public static void sendSingleSMS(String list, String number) {
         android.telephony.SmsManager m = android.telephony.SmsManager
                 .getDefault();
