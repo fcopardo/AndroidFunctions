@@ -34,6 +34,18 @@ public class DateFunctions {
     }
 
     /**
+     * Converts an int timestamp into a date
+     *
+     * @param time an int timestamp
+     * @return a date object representation of the given timestamp.
+     */
+    public static Date getDate(Long time) {
+        Date d = new Date();
+        d.setTime(time);
+        return d;
+    }
+
+    /**
      * Converts the date to a readable string.
      *
      * @param date the date to be converted.
