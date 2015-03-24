@@ -1,5 +1,8 @@
 package com.grizzly.functions;
 
+import android.text.InputFilter;
+import android.text.Spanned;
+
 /**
  * Text Validation Functions. Currently contains only functions related to the Chilean ID
  * Created by fpardo on 1/28/15.
@@ -84,4 +87,37 @@ public class ValidationFunctions {
 
         return rut_o + verifica;
     }
+
+    public static InputFilter filterForChileandID(){
+
+        /*InputFilter filter = new InputFilter() {
+            public CharSequence filter(CharSequence source, int start, int end,
+                                       Spanned dest, int dstart, int dend) {
+                for (int i = start; i < end; i++) {
+                    if (!Character.isLetterOrDigit(source.charAt(i))) {
+                        return "";
+                    }
+                }
+                return null;
+            }
+        };*/
+
+        InputFilter filter = new InputFilter() {
+            public CharSequence filter(CharSequence source, int start, int end,
+                                       Spanned dest, int dstart, int dend) {
+                for (int i = start; i < end; i++) {
+                    if (!Character.isLetterOrDigit(source.charAt(i))) {
+                        return "";
+                    }
+
+                    if(Character.isLetter(source.charAt(i)) && i<7){
+                        return "";
+                    }
+                }
+                return null;
+            }
+        };
+        return filter;
+    }
+
 }
