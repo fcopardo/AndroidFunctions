@@ -53,7 +53,7 @@ public class ObscuredSharedPreferences implements SharedPreferences {
     //in the case of float, int, and long we can tell if there was a parse error
     //this does not detect an error in strings or boolean - that requires more sophisticated checks
     public static boolean decryptionErrorFlag = false; 
-  
+
     /**
      * Constructor
      * @param context
@@ -63,8 +63,26 @@ public class ObscuredSharedPreferences implements SharedPreferences {
         this.delegate = delegate;
         this.context = context;
         //updated thanks to help from bkhall on github
-        ObscuredSharedPreferences.setNewKey(Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID));
-        ObscuredSharedPreferences.setNewSalt(Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID));
+        if(SEKRIT!=null){
+            String key = "";
+            for(Character c : SEKRIT){
+                key = key+c.toString();
+            }
+            ObscuredSharedPreferences.setNewKey(key);
+            ObscuredSharedPreferences.setNewSalt(key);
+        }
+        else{
+            if(Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID) == null){
+                String key = "debugkey";
+                setNewKey(key);
+                ObscuredSharedPreferences.setNewKey(key);
+                ObscuredSharedPreferences.setNewSalt(key);
+            }
+            else{
+                ObscuredSharedPreferences.setNewKey(Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID));
+                ObscuredSharedPreferences.setNewSalt(Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID));
+            }
+        }
     }
     
     /**
