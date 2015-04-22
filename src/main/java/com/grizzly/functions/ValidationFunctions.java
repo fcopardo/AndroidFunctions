@@ -9,6 +9,10 @@ import android.text.Spanned;
  */
 public class ValidationFunctions {
 
+    public static final String simpleRutPattern = "\\d{8}[0-9]{1}";
+    public static final String commonRutPattern = "\\d{8}-?[0-9]{1}";
+    public static final String fullRutPattern = "\\d{8}-?[0-9]{1}";
+
     /**
      * Checks if a given String is a valid Chilean ID.
      * @param rut_a the String to evaluate
