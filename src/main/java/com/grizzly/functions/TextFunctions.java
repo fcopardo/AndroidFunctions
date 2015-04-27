@@ -121,4 +121,21 @@ public class TextFunctions {
     public static boolean isMail(String mail){
         return !TextUtils.isEmpty(mail) && android.util.Patterns.EMAIL_ADDRESS.matcher(mail).matches();
     }
+
+    /**
+     * Allows to get the id of a value inside a given R class. Useful to traverse the dictionary.
+     * @param rClass the R class to be traversed. Example: R.String.class
+     * @param resourceText the resource which id is being looked for.
+     * @return the int identifier of the resource. 0 if the operation fails.
+     */
+    public static int getResourceId(Class rClass, String resourceText){
+        try {
+            return rClass.getDeclaredField(resourceText).getInt(null);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }
