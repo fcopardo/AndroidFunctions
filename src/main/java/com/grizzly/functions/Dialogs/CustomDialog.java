@@ -16,12 +16,14 @@
 package com.grizzly.functions.Dialogs;
 
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.StyleRes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -37,11 +39,39 @@ public class CustomDialog {
     private static String response = "";
     private static boolean booleanResponse = false;
     private static int logo = 0;
+    private static int dialogTheme = 0;
 
+
+    public static void setDialogTheme(@StyleRes int theme){
+        dialogTheme = theme;
+    }
+
+    @SuppressLint("NewApi")
     @TargetApi(Build.VERSION_CODES.FROYO)
     public static void OneButtonDialog(final Activity activity, String message) {
 
-        AlertDialog alertDialog1 = new AlertDialog.Builder(activity).create();
+        OneButtonDialog(activity, message, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+    }
+
+    @SuppressLint("NewApi")
+    @TargetApi(Build.VERSION_CODES.FROYO)
+    public static void OneButtonDialog(final Activity activity, String message, DialogInterface.OnClickListener listener) {
+
+        AlertDialog alertDialog1;
+        if(dialogTheme != 0 && Build.VERSION.SDK_INT>=11){
+            alertDialog1 = new AlertDialog.Builder(activity, dialogTheme).create();
+
+        }
+        else{
+            alertDialog1 = new AlertDialog.Builder(activity).create();
+
+        }
 
         if(logo!=0){
             alertDialog1.setIcon(logo);
@@ -49,32 +79,42 @@ public class CustomDialog {
 
         alertDialog1.setTitle("Info");
         alertDialog1.setMessage(message);
-        alertDialog1.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                new DialogInterface.OnClickListener() {
-
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
-                }
-        );
+        alertDialog1.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", listener);
         alertDialog1.show();
     }
 
-    @TargetApi(Build.VERSION_CODES.FROYO)
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static void OneButtonDialog(final Activity activity, String message,
                                        String title) {
 
-        AlertDialog alertDialog1 = new AlertDialog.Builder(activity).create();
+
+        OneButtonDialog(activity, message, title, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+    }
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public static void OneButtonDialog(final Activity activity, String message,
+                                       String title, DialogInterface.OnClickListener listener) {
+
+        AlertDialog alertDialog1;
+        if(dialogTheme != 0 && Build.VERSION.SDK_INT>=11){
+            alertDialog1 = new AlertDialog.Builder(activity, dialogTheme).create();
+
+        }
+        else{
+            alertDialog1 = new AlertDialog.Builder(activity).create();
+
+        }
 
         alertDialog1.setTitle(title);
         alertDialog1.setMessage(message);
         alertDialog1.setIcon(logo);
-        alertDialog1.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                new DialogInterface.OnClickListener() {
-
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
-                }
-        );
+        alertDialog1.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", listener);
         alertDialog1.show();
     }
 
