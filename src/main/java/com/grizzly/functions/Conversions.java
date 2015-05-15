@@ -160,6 +160,7 @@ public class Conversions {
      */
     public static <T> void bundleToObject(T object, Class<T> objectClass, Bundle bundle){
         for(Field field : objectClass.getDeclaredFields()){
+            field.setAccessible(true);
             if(bundle.containsKey(field.getName())){
                 try {
                     field.set(object, bundle.get(field.getName()));

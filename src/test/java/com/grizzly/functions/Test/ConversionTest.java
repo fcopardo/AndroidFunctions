@@ -1,7 +1,10 @@
 package com.grizzly.functions.Test;
 
+import android.os.Bundle;
 import com.grizzly.functions.BaseAndroidTestClass;
 import com.grizzly.functions.Conversions;
+import com.grizzly.functions.Test.DummyClasses.Cheese;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
@@ -15,11 +18,26 @@ public class ConversionTest extends BaseAndroidTestClass {
     @Test
     public void testStringify(){
 
-        class cheese{
-            private int a = 1;
-            private String b = "A";
-        }
-        System.out.println(Conversions.stringifyObject(new cheese()));
+        Cheese cheese = new Cheese();
+        cheese.setA(1);
+        cheese.setB("b");
+
+        System.out.println("Cheese as String:"+Conversions.stringifyObject(cheese));
+    }
+
+    @Test
+    public void testBundlify(){
+
+        Bundle bundle = new Bundle();
+        bundle.putInt("a", 1);
+        bundle.putString("b", "Fco");
+
+        Cheese cheese = new Cheese();
+
+        Conversions.bundleToObject(cheese, Cheese.class, bundle);
+        cheese.printMe();
+        Assert.assertTrue("We failed!", "Fco1".equals(cheese.getMe()));
+
     }
 
 }
