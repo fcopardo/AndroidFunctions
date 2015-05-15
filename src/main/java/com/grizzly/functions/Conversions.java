@@ -1,6 +1,7 @@
 
 package com.grizzly.functions;
 
+import android.os.Bundle;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
@@ -149,5 +150,23 @@ public class Conversions {
         ObjectMapper mapper = new ObjectMapper();
         T n = mapper.readValue(json, objectClass);
         return n;
+    }
+
+    /**
+     * Maps an object with a bundle. It may fail with complex objects.
+     * @param object The object to be filled.
+     * @param objectClass The class of the Object.
+     * @param bundle The bundle which values we pretend to put inside the object.
+     */
+    public static <T> void bundleToObject(T object, Class<T> objectClass, Bundle bundle){
+        for(Field field : objectClass.getDeclaredFields()){
+            if(bundle.containsKey(field.getName())){
+                try {
+                    field.set(object, bundle.get(field.getName()));
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }

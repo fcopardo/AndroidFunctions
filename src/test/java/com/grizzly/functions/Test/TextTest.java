@@ -15,17 +15,17 @@ public class TextTest extends BaseAndroidTestClass {
 
     @Test
     public void testFirstUCase(){
-
         org.junit.Assert.assertEquals("Hello there", TextFunctions.setFirstUCase("hello there"));
-
     }
 
     @Test
     public void testResourceGetter(){
-
         org.junit.Assert.assertEquals(getContext().getString(TextFunctions.getResourceId(R.string.class, "No")), "No");
-
     }
 
+    @Test
+    public void testSetAsName(){
+        org.junit.Assert.assertEquals("Hello There", TextFunctions.setAsName("hello there"));
+    }
 
 }
