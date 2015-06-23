@@ -8,9 +8,15 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Point;
 import android.os.Build;
+import android.util.Log;
 import android.view.Display;
 import android.view.Surface;
 import android.view.WindowManager;
+
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.util.Enumeration;
 
 
 /**
@@ -107,6 +113,35 @@ public class DeviceFunctions {
                 return false;
         }
 
+    }
+
+    /**
+     * Return the Device IP address.
+     * Source: https://groups.google.com/forum/#!topic/android-developers/a5loFkRuV3w
+     * Credits to Regina Mitsue Azuma
+     * @return
+     */
+    public static String getLocalIpAddress() {
+        try {
+            for (Enumeration<NetworkInterface> en =
+                 NetworkInterface.getNetworkInterfaces(); en
+                         .hasMoreElements();) {
+                NetworkInterface intf = en.nextElement();
+                for (Enumeration<InetAddress> enumIpAddr =
+                     intf.getInetAddresses(); enumIpAddr
+                             .hasMoreElements();) {
+                    InetAddress inetAddress = enumIpAddr.nextElement
+                            ();
+                    if (!inetAddress.isLoopbackAddress()) {
+                        return inetAddress.getHostAddress().toString
+                                ();
+                    }
+                }
+            }
+        } catch (SocketException ex) {
+            Log.e("AndroidFunctions", ex.toString());
+        }
+        return null;
     }
 
 }
