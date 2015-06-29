@@ -9,8 +9,12 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 //A class containing reflection methods.
 public class Conversions {
@@ -169,5 +173,33 @@ public class Conversions {
                 }
             }
         }
+    }
+
+    /**
+     * Takes a list and converts it to a map
+     * @param list
+     * @return
+     */
+    public static <C, T> Map<C, T> getDataAsMap(List<T> list, String getter, Class<C> indexClass) {
+        Map<C, T> map = new LinkedHashMap<>();
+        boolean dontWasteTime = false;
+        for (T element : list) {
+            try {
+                Method method = null;
+                method = element.getClass().getMethod(getter.replace("(", "").replace(")", ""));
+                map.put((C) method.invoke(element), element);
+                if(dontWasteTime) break;
+            } catch (NoSuchMethodException e) {
+                dontWasteTime = true;
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                dontWasteTime = true;
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                dontWasteTime = true;
+                e.printStackTrace();
+            }
+        }
+        return map;
     }
 }

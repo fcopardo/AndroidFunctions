@@ -9,6 +9,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Created by fpardo on 1/23/15.
  */
@@ -37,6 +41,22 @@ public class ConversionTest extends BaseAndroidTestClass {
         Conversions.bundleToObject(cheese, Cheese.class, bundle);
         cheese.printMe();
         Assert.assertTrue("We failed!", "Fco1".equals(cheese.getMe()));
+
+    }
+
+    @Test
+    public void testGetAsMap(){
+
+        List<Cheese> cheeses = new ArrayList<>();
+        for(int c = 0; c<5;c++){
+            Cheese cheese = new Cheese();
+            cheese.setA(c);
+            cheese.setB("Cheese number " + c);
+            cheeses.add(cheese);
+        }
+
+        Map<Integer, Cheese> cheeseMap = Conversions.getDataAsMap(cheeses, "getA", Integer.class);
+        Assert.assertTrue("We failed!", cheeseMap.containsKey(1));
 
     }
 
