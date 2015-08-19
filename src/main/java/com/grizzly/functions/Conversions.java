@@ -11,10 +11,7 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 //A class containing reflection methods.
 public class Conversions {
@@ -202,4 +199,38 @@ public class Conversions {
         }
         return map;
     }
+
+    public static <C, T> void doObjectMapping(C origin, T destiny){
+
+        Map<String, Method> setMethodMap = new HashMap<>();
+        Map<String, Method> getMethodMap = new HashMap<>();
+        Map<String, Field> originFields = new HashMap<>();
+        Map<String, Field> destinyFields = new HashMap<>();
+
+        for(Method method: origin.getClass().getDeclaredMethods()){
+            if(method.getReturnType().equals(Void.TYPE)){
+                getMethodMap.put(method.getName(), method);
+            }
+        }
+
+        for(Method method: destiny.getClass().getDeclaredMethods()){
+            if(method.getName().startsWith("set")){
+                setMethodMap.put(method.getName(), method);
+            }
+        }
+
+        for(Field field: origin.getClass().getDeclaredFields()){
+            if(field.isAccessible()){
+                originFields.put(field.getName(), field);
+            }
+        }
+
+        for(Field field: destiny.getClass().getDeclaredFields()){
+            if(field.isAccessible()){
+                destinyFields.put(field.getName(), field);
+            }
+        }
+
+    }
+
 }
