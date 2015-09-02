@@ -9,9 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by fpardo on 1/23/15.
@@ -57,6 +55,22 @@ public class ConversionTest extends BaseAndroidTestClass {
 
         Map<Integer, Cheese> cheeseMap = Conversions.getDataAsMap(cheeses, "getA", Integer.class);
         Assert.assertTrue("We failed!", cheeseMap.containsKey(1));
+
+    }
+
+    @Test
+    public void testCurrencies(){
+
+        for(Currency currency : Currency.getAvailableCurrencies()){
+            System.out.println(currency.getDisplayName() + " - " + currency.getCurrencyCode()
+                    + " - "+ currency.getSymbol() + " - " + currency.getNumericCode()
+                    + " - "+ currency.getDisplayName(Locale.forLanguageTag("es-CL"))
+                    + " - "+ currency.getDisplayName(Locale.getDefault())
+                    + " - "+ currency.getSymbol()
+                    + " - "+ currency.getSymbol(Locale.getDefault())
+            );
+
+        }
 
     }
 

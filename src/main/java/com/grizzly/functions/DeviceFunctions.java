@@ -4,6 +4,7 @@ package com.grizzly.functions;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Point;
@@ -142,6 +143,39 @@ public class DeviceFunctions {
             Log.e("AndroidFunctions", ex.toString());
         }
         return null;
+    }
+
+    /**
+     * Defines if the device has little memory. The freeRamValue defines the minimal mount of free ram the device
+     * must have, and the minimalDeviceRamValue defines the minimal amount of total ram the device must have.
+     * @return
+     */
+    public static boolean isMemoryLow(Context context, int freeRamValue, int minimalDeviceRamValue){
+
+        if(freeRamValue<0)freeRamValue = 100000;
+        if(minimalDeviceRamValue<0)minimalDeviceRamValue = 70000;
+
+
+        ActivityManager activityManager = (ActivityManager) context.getApplicationContext().getSystemService(context.ACTIVITY_SERVICE);
+        ActivityManager.MemoryInfo memoryInfo = new ActivityManager.MemoryInfo();
+        activityManager.getMemoryInfo(memoryInfo);
+
+        if(Build.VERSION.SDK_INT>=16){
+            if((memoryInfo.totalMem)/10000<freeRamValue || (memoryInfo.totalMem-memoryInfo.availMem)/10000<minimalDeviceRamValue || memoryInfo.lowMemory){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        else{
+            if(memoryInfo.availMem/10000<minimalDeviceRamValue || memoryInfo.lowMemory){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
     }
 
 
