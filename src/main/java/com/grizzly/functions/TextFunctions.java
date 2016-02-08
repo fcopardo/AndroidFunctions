@@ -129,12 +129,22 @@ public class TextFunctions {
      * @return the int identifier of the resource. 0 if the operation fails.
      */
     public static int getResourceId(Class rClass, String resourceText){
+        return getResourceId(rClass, resourceText, true);
+    }
+
+    /**
+     * Allows to get the id of a value inside a given R class. Useful to traverse the dictionary.
+     * @param rClass the R class to be traversed. Example: R.String.class
+     * @param resourceText the resource which id is being looked for.
+     * @return the int identifier of the resource. 0 if the operation fails.
+     */
+    public static int getResourceId(Class rClass, String resourceText, boolean showExceptions){
         try {
             return rClass.getDeclaredField(resourceText).getInt(null);
         } catch (IllegalAccessException e) {
-            e.printStackTrace();
+            if(showExceptions) e.printStackTrace();
         } catch (NoSuchFieldException e) {
-            e.printStackTrace();
+            if(showExceptions) e.printStackTrace();
         }
         return 0;
     }
