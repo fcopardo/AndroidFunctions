@@ -1,7 +1,15 @@
 package com.grizzly.functions;
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.text.InputFilter;
 import android.text.Spanned;
+
+import java.io.UnsupportedEncodingException;
+import java.text.Normalizer;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Pattern;
 
 /**
  * Text Validation Functions. Currently contains only functions related to the Chilean ID
@@ -12,6 +20,8 @@ public class ValidationFunctions {
     public static final String simpleRutPattern = "\\d{8}[0-9]{1}";
     public static final String commonRutPattern = "\\d{8}-?[0-9]{1}";
     public static final String fullRutPattern = "\\d{8}-?[0-9]{1}";
+
+
 
     /**
      * Checks if a given String is a valid Chilean ID.
@@ -122,6 +132,20 @@ public class ValidationFunctions {
             }
         };
         return filter;
+    }
+
+    @TargetApi(Build.VERSION_CODES.GINGERBREAD)
+    public static String normalizeText(String unAccentMe){
+
+        String s1 = Normalizer.normalize(unAccentMe, Normalizer.Form.NFKD);
+        String regex = Pattern.quote("[\\p{InCombiningDiacriticalMarks}\\p{IsLm}\\p{IsSk}]+");
+
+        try {
+            return new String(s1.replaceAll(regex, "").getBytes("ascii"), "ascii");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return unAccentMe;
+        }
     }
 
 }

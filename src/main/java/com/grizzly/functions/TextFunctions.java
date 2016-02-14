@@ -7,6 +7,8 @@ import android.text.TextUtils;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -15,6 +17,9 @@ import java.security.NoSuchAlgorithmException;
  * @author Fco Pardo Baeza.
  */
 public class TextFunctions {
+
+    private static Map<String, Integer> ResourceMap = new HashMap<>();
+    private static Map<String, Integer> FailedResourceMap = new HashMap<>();
 
     /**
      * Sets the first character of a String to Uppercase.
@@ -139,13 +144,28 @@ public class TextFunctions {
      * @return the int identifier of the resource. 0 if the operation fails.
      */
     public static int getResourceId(Class rClass, String resourceText, boolean showExceptions){
+
+        if(ResourceMap.containsKey(rClass.getName()+"-"+resourceText)) return ResourceMap.get(rClass.getName()+"-"+resourceText);
+        if(FailedResourceMap.containsKey(rClass.getName()+"-"+resourceText)) return 0;
+
         try {
-            return rClass.getDeclaredField(resourceText).getInt(null);
+
+            String originalText = resourceText;
+            if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.GINGERBREAD){
+                resourceText = ValidationFunctions.normalizeText(resourceText);
+            }
+            resourceText = resourceText.replace("?", "").replace(" ", "_");
+
+            int resource = rClass.getDeclaredField(resourceText).getInt(null);
+            ResourceMap.put(rClass.getName()+"-"+originalText, resource);
+
+            return resource;
         } catch (IllegalAccessException e) {
             if(showExceptions) e.printStackTrace();
         } catch (NoSuchFieldException e) {
             if(showExceptions) e.printStackTrace();
         }
+        FailedResourceMap.put(rClass.getName()+"-"+resourceText, 0);
         return 0;
     }
 }
