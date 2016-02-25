@@ -74,6 +74,7 @@ public class DeviceFunctions {
      * @param act an activity to provide access to the android system's services
      * @return true if the device is in landscape mode
      */
+    @TargetApi(Build.VERSION_CODES.FROYO)
     public static boolean isLandscape(Activity act) {
         boolean bol = false;
         Display display = ((WindowManager) act

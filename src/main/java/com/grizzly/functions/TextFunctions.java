@@ -154,7 +154,7 @@ public class TextFunctions {
             if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.GINGERBREAD){
                 resourceText = ValidationFunctions.normalizeText(resourceText);
             }
-            resourceText = resourceText.replace("?", "").replace(" ", "_");
+            resourceText = resourceText.replace("?", "").replace("  ", " ").replace(" ", "_").replace("(", "").replace(")", "");
 
             int resource = rClass.getDeclaredField(resourceText).getInt(null);
             ResourceMap.put(rClass.getName()+"-"+originalText, resource);
