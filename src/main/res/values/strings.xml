@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello AndroidFunctions!</string>
+    <string name="lib_name">AndroidFunctions</string>
+    <string name="Email">E-mail</string>
+    <string name="Yes">Yes</string>
+    <string name="No">No</string>
+    <string name="getEmailMessage">Enter the email address</string>
+</resources>
