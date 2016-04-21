@@ -90,8 +90,7 @@ public class DeviceFunctions {
     }
 
     public static boolean isJellyBeanDevice(){
-        if(!(Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN_MR2 &&
-                Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)){
+        if(!(Build.VERSION.SDK_INT == Build.VERSION_CODES.JELLY_BEAN)){
             return false;
         }
         else return true;

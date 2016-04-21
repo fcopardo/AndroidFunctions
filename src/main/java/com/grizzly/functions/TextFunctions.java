@@ -160,7 +160,7 @@ public class TextFunctions {
             ResourceMap.put(rClass.getName()+"-"+originalText, resource);
 
             return resource;
-        } catch (IllegalAccessException e) {
+        } catch (IllegalAccessException | NullPointerException e) {
             if(showExceptions) e.printStackTrace();
         } catch (NoSuchFieldException e) {
             if(showExceptions) e.printStackTrace();

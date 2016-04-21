@@ -137,12 +137,11 @@ public class ValidationFunctions {
     @TargetApi(Build.VERSION_CODES.GINGERBREAD)
     public static String normalizeText(String unAccentMe){
 
-        String s1 = Normalizer.normalize(unAccentMe, Normalizer.Form.NFKD);
-        String regex = Pattern.quote("[\\p{InCombiningDiacriticalMarks}\\p{IsLm}\\p{IsSk}]+");
-
         try {
+            String s1 = Normalizer.normalize(unAccentMe, Normalizer.Form.NFKD);
+            String regex = Pattern.quote("[\\p{InCombiningDiacriticalMarks}\\p{IsLm}\\p{IsSk}]+");
             return new String(s1.replaceAll(regex, "").getBytes("ascii"), "ascii");
-        } catch (UnsupportedEncodingException e) {
+        } catch (UnsupportedEncodingException | NullPointerException e) {
             e.printStackTrace();
             return unAccentMe;
         }
