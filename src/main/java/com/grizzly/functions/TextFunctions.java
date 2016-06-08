@@ -145,8 +145,10 @@ public class TextFunctions {
      */
     public static int getResourceId(Class rClass, String resourceText, boolean showExceptions){
 
-        if(ResourceMap.containsKey(rClass.getName()+"-"+resourceText)) return ResourceMap.get(rClass.getName()+"-"+resourceText);
-        if(FailedResourceMap.containsKey(rClass.getName()+"-"+resourceText)) return 0;
+        String key = rClass.getName()+"-"+resourceText;
+
+        if(FailedResourceMap.containsKey(key)) return 0;
+        if(ResourceMap.containsKey(key)) return ResourceMap.get(rClass.getName()+"-"+resourceText);
 
         try {
 
@@ -161,11 +163,13 @@ public class TextFunctions {
 
             return resource;
         } catch (IllegalAccessException | NullPointerException e) {
+            FailedResourceMap.put(key, 0);
             if(showExceptions) e.printStackTrace();
         } catch (NoSuchFieldException e) {
+            FailedResourceMap.put(key, 0);
             if(showExceptions) e.printStackTrace();
         }
-        FailedResourceMap.put(rClass.getName()+"-"+resourceText, 0);
+
         return 0;
     }
 }
