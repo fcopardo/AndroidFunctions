@@ -177,16 +177,18 @@ public class Conversions {
 
     /**
      * Takes a list and converts it to a map
-     * @param list
+     * @param list the list to be mapped
+     * @param getter the getter of the field to be used as index. the () sign is optional.
+     * @param C the class of the index field.
      * @return
      */
     public static <C, T> Map<C, T> getDataAsMap(List<T> list, String getter, Class<C> indexClass) {
         Map<C, T> map = new LinkedHashMap<>();
         boolean dontWasteTime = false;
+        Method method = null;
         for (T element : list) {
             try {
-                Method method = null;
-                method = element.getClass().getMethod(getter.replace("(", "").replace(")", ""));
+                if (method == null) method = element.getClass().getMethod(getter.replace("(", "").replace(")", ""));
                 map.put((C) method.invoke(element), element);
                 if(dontWasteTime) break;
             } catch (NoSuchMethodException e) {
