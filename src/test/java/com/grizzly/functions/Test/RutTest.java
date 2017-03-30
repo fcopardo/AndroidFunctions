@@ -19,20 +19,20 @@ public class RutTest extends BaseAndroidTestClass {
     @Test
     public void testSimpleRutRegex() {
 
-        org.junit.Assert.assertTrue("Oops!", "150282349".matches(ValidationFunctions.simpleRutPattern));
+        org.junit.Assert.assertTrue("Oops!", "235519283".matches(ValidationFunctions.simpleRutPattern));
 
     }
 
     @Test
     public void testLineRutRegex() {
 
-        org.junit.Assert.assertTrue("Oops!", "15028234-9".matches(ValidationFunctions.commonRutPattern));
+        org.junit.Assert.assertTrue("Oops!", "23551928-3".matches(ValidationFunctions.commonRutPattern));
 
     }
 
     @Test
     public void testFullRutRegex() {
-        org.junit.Assert.assertTrue("Oops!", "15028234-9".matches(ValidationFunctions.commonRutPattern));
+        org.junit.Assert.assertTrue("Oops!", "23551928-3".matches(ValidationFunctions.commonRutPattern));
 
     }
 }
